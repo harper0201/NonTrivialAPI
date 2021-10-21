@@ -64,15 +64,10 @@ public class MainActivity extends AppCompatActivity {
         buttongetcurrentposition.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                if (ActivityCompat.checkSelfPermission(MainActivity.this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    getCurrentLocation();
-                } else {
-                    ActivityCompat.requestPermissions(MainActivity.this,
-                            new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 44);
-                }
+                getCurrentLocation();
             }
         });
+
         buttonnavigatetoMap.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -82,6 +77,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == REQUEST_CODE_LOCATION_PERMISSION && grantResults.length > 0){
+            if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                getCurrentLocation();
+            }
+            else{
+                Toast.makeText(this, "Permission Denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     private void getCurrentLocation() {
