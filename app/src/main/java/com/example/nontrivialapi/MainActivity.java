@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private Button buttongetcurrentposition;
     private Button buttonnavigatetoMap;
-    private int Position[];
+    private double Position[];
     Intent intent;
     FusedLocationProviderClient fusedLocationProviderClient;
 
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         buttongetcurrentposition = findViewById(R.id.buttonGetCurrentPosition);
         buttonnavigatetoMap = findViewById(R.id.buttonNavigatetoGoogleMap);
         //initialize position
-        Position = new int[2];
+        Position = new double[2];
         //initialize fusedLocationProviderClient
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         buttongetcurrentposition.setOnClickListener(new View.OnClickListener(){
@@ -106,10 +106,10 @@ public class MainActivity extends AppCompatActivity {
                                         location.getLongitude(),1);
                         //set latitude
                         latitude.setText(Html.fromHtml("<font color = '#6200EE'><b>Latitude:</b></font>" + addressList.get(0).getLatitude()));
-                        Position[0] = (int) addressList.get(0).getLatitude();
+                        Position[0] = addressList.get(0).getLatitude();
                         //set longtitude
                         longtitude.setText(Html.fromHtml("<font color = '#6200EE'><b>Longtitude:</b></font>" + addressList.get(0).getLongitude()));
-                        Position[1] = (int) addressList.get(0).getLongitude();
+                        Position[1] = addressList.get(0).getLongitude();
                         //set countryname
                         country.setText(Html.fromHtml("<font color = '#6200EE'><b>Country " +
                                 ":</b></font>" + addressList.get(0).getCountryName()));

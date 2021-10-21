@@ -32,7 +32,6 @@ import com.karumi.dexter.listener.single.PermissionListener;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback {
     boolean isPermissionGranter;
-    MapView mapView;
     GoogleMap googleMap;
     Intent map;
     @Override
@@ -97,7 +96,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         googleMap = googleMap;
         Intent map = getIntent();
-        LatLng latLng = new LatLng(map.getIntExtra("Latitude",0),map.getIntExtra("Longtitude",0));
+        LatLng latLng = new LatLng(map.getDoubleExtra("Latitude",0),map.getDoubleExtra("Longtitude",
+                0));
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.title("My Position");
         markerOptions.position(latLng);
