@@ -1,19 +1,24 @@
 package com.example.nontrivialapi;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.Settings;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -42,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     private Button buttongetcurrentposition;
     private Button buttonnavigatetoMap;
     private double Position[];
-    Intent intent;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
@@ -62,9 +66,24 @@ public class MainActivity extends AppCompatActivity {
         //initialize fusedLocationProviderClient
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         buttongetcurrentposition.setOnClickListener(new View.OnClickListener(){
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v) {
-                getCurrentLocation();
+                if(checkPermissions()){
+                    if(isLocationEnabled()){
+                        //execute when Permission and Location is avaliable
+                        getCurrentLocation();
+                    }
+                    else{
+                        Toast.makeText(MainActivity.this,"Please turn on your location",
+                                Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
+                }
+                else{
+                    requestPermissions();
+                }
             }
         });
 
@@ -77,6 +96,21 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+    private boolean checkPermissions() {
+        return ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(this, new String[]{
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION}, 44);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean isLocationEnabled() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
     @Override
@@ -92,18 +126,13 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private void getCurrentLocation() {
         progressBar.setVisibility(View.VISIBLE);
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
-                    44);
-        }
        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
             @Override
             public void onComplete(@NonNull Task<Location> task) {
                 Location location = task.getResult();
-
                 if(location != null){
                     try{
                         //initialize geocoder
