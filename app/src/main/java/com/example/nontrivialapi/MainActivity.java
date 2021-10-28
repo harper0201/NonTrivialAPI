@@ -23,6 +23,7 @@ import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +33,7 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttongetcurrentposition;
     private Button buttonnavigatetoMap;
     private double Position[];
+    private Marker marker;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
