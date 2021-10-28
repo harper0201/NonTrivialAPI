@@ -18,6 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NonTrivialAPI">
         <activity
+            android:name=".SearchAPlace"
+            android:exported="true" />
+        <activity
             android:name=".MapActivity"
             android:exported="true" />
         <!--

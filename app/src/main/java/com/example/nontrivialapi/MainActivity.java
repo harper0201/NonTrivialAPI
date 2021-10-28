@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonnavigatetoMap;
     private double Position[];
     private Marker marker;
+    private Button  buttonSearchAPlace;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         address = findViewById(R.id.Address);
         buttongetcurrentposition = findViewById(R.id.buttonGetCurrentPosition);
         buttonnavigatetoMap = findViewById(R.id.buttonNavigatetoGoogleMap);
+        buttonSearchAPlace = findViewById(R.id.SearchAPlace);
         //initialize position
         Position = new double[2];
         //initialize fusedLocationProviderClient
@@ -96,6 +98,14 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, MapActivity.class);
                 intent.putExtra("Latitude",Position[0]);
                 intent.putExtra("Longtitude",Position[1]);
+                startActivity(intent);
+            }
+        });
+
+        buttonSearchAPlace.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SearchAPlace.class);
                 startActivity(intent);
             }
         });
@@ -163,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.GONE);
                 buttonnavigatetoMap.setVisibility(View.VISIBLE);
+                buttonSearchAPlace.setVisibility(View.VISIBLE);
             }
         });
     }
