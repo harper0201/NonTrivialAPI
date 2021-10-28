@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "552846280610",
+    "project_id": "steady-habitat-329414",
+    "storage_bucket": "steady-habitat-329414.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552846280610:android:7196db449e91b730a714fb",
+        "android_client_info": {
+          "package_name": "com.example.nontrivialapi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "552846280610-ulbdutrrlk1e0oqq8mne16r6andn2f06.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCV-Ezy2VnvXRbCRFcGgXt6WaCWwDA3lDE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "552846280610-ulbdutrrlk1e0oqq8mne16r6andn2f06.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
