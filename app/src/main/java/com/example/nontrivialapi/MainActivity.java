@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
     private Button buttongetcurrentposition;
     private Button buttonnavigatetoMap;
     private double Position[];
-    private Marker marker;
     private ImageView icSearch;
     private ImageView icEmail;
     private String addressLine;
@@ -112,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //send email of address and google map url
         icEmail.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

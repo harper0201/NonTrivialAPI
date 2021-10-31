@@ -41,8 +41,6 @@ import java.util.Map;
 
 public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallback {
     private EditText mSearchText;
-
-    //vars
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
@@ -70,14 +68,11 @@ public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallbac
             }
             mMap.setMyLocationEnabled(true);
             mMap.getUiSettings().setMyLocationButtonEnabled(false);
-
             init();
         }
-
     }
 
     private void init(){
-
         mSearchText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
@@ -85,11 +80,9 @@ public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallbac
                         || actionId == EditorInfo.IME_ACTION_DONE
                         || keyEvent.getAction() == KeyEvent.ACTION_DOWN
                         || keyEvent.getAction() == KeyEvent.KEYCODE_ENTER){
-
                     //execute our method for searching
                     geoLocate();
                 }
-
                 return false;
             }
         });
@@ -97,9 +90,7 @@ public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void geoLocate(){
-
         String searchString = mSearchText.getText().toString();
-
         Geocoder geocoder = new Geocoder(SearchAPlace.this);
         List<Address> list = new ArrayList<>();
         try{
@@ -107,7 +98,6 @@ public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallbac
         }catch (IOException e){
             e.printStackTrace();
         }
-
         if(list.size() > 0){
             Address address = list.get(0);
             if(searchString.equals("binghamton university")){
