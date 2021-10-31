@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private Marker marker;
     private ImageView icSearch;
     private ImageView icEmail;
+    private String addressLine;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
@@ -117,9 +118,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent send = new Intent(Intent.ACTION_SEND);
                 send.setType("text/plain");
-                //String subject
-                //send.putExtra(Intent.EXTRA_EMAIL,new String[] {String receiver});
-
+                String[] To = {""};
+                send.putExtra(Intent.EXTRA_EMAIL,To);
+                String subject = "My Position";
+                send.putExtra(Intent.EXTRA_SUBJECT,subject);
+                send.putExtra(Intent.EXTRA_TEXT, addressLine + "\n" + "https://www.google.com/maps/search/?api=1&query" +
+                        "=" + Position[0] + "," + Position[1]);
+                try{
+                    startActivity(Intent.createChooser(send,"Choose an Email client"));
+                }catch (android.content.ActivityNotFoundException ex){
+                    Toast.makeText(MainActivity.this,"There is no email client installed",Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
@@ -180,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         locality.setText(Html.fromHtml("<font color = '#6200EE'><b>Locality:</b></font>" + addressList.get(0).getLocality()));
                         //set address
                         address.setText(Html.fromHtml("<font color ='#6200EE'><b>Address:</b></font>" + addressList.get(0).getAddressLine(0)));
+                        addressLine = addressList.get(0).getAddressLine(0);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
