@@ -19,7 +19,8 @@
         android:theme="@style/Theme.NonTrivialAPI">
         <activity
             android:name=".SearchAPlace"
-            android:exported="true" />
+            android:exported="true"
+            android:label="SearchAPlace"/>
         <activity
             android:name=".MapActivity"
             android:exported="true" />
@@ -42,7 +43,6 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

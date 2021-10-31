@@ -83,13 +83,29 @@
         android:layout_margin="20dp"
         android:visibility="invisible"/>
 
-    <Button
-        android:id="@+id/SearchAPlace"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Search a place"
-        android:layout_margin="20dp"
-        android:visibility="invisible"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ic_search"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_baseline_search_300"
+            android:visibility="invisible"/>
+
+        <ImageView
+            android:id="@+id/ic_email"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="150dp"
+            android:layout_marginLeft="150dp"
+            android:layout_marginTop="20dp"
+            android:layout_toEndOf="@+id/ic_search"
+            android:src="@drawable/ic_baseline_email_300"
+            android:visibility="invisible" />
+    </RelativeLayout>
 
 
 </LinearLayout>

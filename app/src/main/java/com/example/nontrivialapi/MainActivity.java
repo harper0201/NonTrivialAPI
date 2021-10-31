@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonnavigatetoMap;
     private double Position[];
     private Marker marker;
-    private Button  buttonSearchAPlace;
+    private ImageView icSearch;
+    private ImageView icEmail;
     FusedLocationProviderClient fusedLocationProviderClient;
 
     @Override
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
         address = findViewById(R.id.Address);
         buttongetcurrentposition = findViewById(R.id.buttonGetCurrentPosition);
         buttonnavigatetoMap = findViewById(R.id.buttonNavigatetoGoogleMap);
-        buttonSearchAPlace = findViewById(R.id.SearchAPlace);
+        icSearch = findViewById(R.id.ic_search);
+        icEmail = findViewById(R.id.ic_email);
         //initialize position
         Position = new double[2];
         //initialize fusedLocationProviderClient
@@ -102,11 +104,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        buttonSearchAPlace.setOnClickListener(new OnClickListener() {
+        icSearch.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SearchAPlace.class);
                 startActivity(intent);
+            }
+        });
+
+        icEmail.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent send = new Intent(Intent.ACTION_SEND);
+                send.setType("text/plain");
+                //String subject
+                //send.putExtra(Intent.EXTRA_EMAIL,new String[] {String receiver});
+
             }
         });
     }
@@ -173,7 +186,8 @@ public class MainActivity extends AppCompatActivity {
                 }
                 progressBar.setVisibility(View.GONE);
                 buttonnavigatetoMap.setVisibility(View.VISIBLE);
-                buttonSearchAPlace.setVisibility(View.VISIBLE);
+                icSearch.setVisibility(View.VISIBLE);
+                icEmail.setVisibility(View.VISIBLE);
             }
         });
     }

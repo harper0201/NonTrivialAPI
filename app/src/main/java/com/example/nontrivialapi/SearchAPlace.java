@@ -27,6 +27,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -45,7 +46,6 @@ public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallbac
     private Boolean mLocationPermissionsGranted = false;
     private GoogleMap mMap;
     private FusedLocationProviderClient mFusedLocationProviderClient;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,14 +110,27 @@ public class SearchAPlace extends AppCompatActivity implements OnMapReadyCallbac
 
         if(list.size() > 0){
             Address address = list.get(0);
-            moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),15f,
-                    address.getAddressLine(0));
+            if(searchString.equals("binghamton university")){
+                addMarkerPicture(new LatLng(address.getLatitude(),address.getLongitude()),15f);
+            }
+           else{
+                moveCamera(new LatLng(address.getLatitude(),address.getLongitude()),15f,
+                        address.getAddressLine(0));
+            }
         }
     }
 
     private void moveCamera(LatLng latLng, float zoom, String title){
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
         MarkerOptions options = new MarkerOptions().position(latLng).title(title);
+        mMap.addMarker(options);
+        hideSoftKeyboard();
+    }
+
+    private void addMarkerPicture(LatLng latLng, float zoom){
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
+        MarkerOptions options =
+                new MarkerOptions().position(latLng).icon(BitmapDescriptorFactory.fromResource(R.drawable.bu));
         mMap.addMarker(options);
         hideSoftKeyboard();
     }
